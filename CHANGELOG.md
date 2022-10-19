@@ -95,3 +95,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [v1.4.8] - 2022-06-08
 ### Added
 - option cppcheck.-I
+
+## [v1.4.9] - 2022-10-19
+### Added
+- option cppcheck.--includes-file

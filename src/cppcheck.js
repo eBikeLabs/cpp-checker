@@ -2,6 +2,7 @@ const vscode = require("vscode");
 let common = require("./common");
 let base = require("./base");
 const log = require('./log');
+const fs = require('fs');
 
 class cppcheck {
     constructor() {
@@ -53,6 +54,17 @@ class cppcheck {
                     res.push("-I" + this.base.to_full_name(value))
                 }
             }
+        }
+
+        // We can't use the option --includes-file supported by cppcheck because the extension runs from the folder of the analyzed file, so the paths inside the file are not valid; this is why, instead, we include all folders one by one with -I option
+        let includes_file = this.base.get_cfg(this.settings, "--includes-file=", false, "");
+        if (!common.is_empty_str(includes_file)) {
+            // res.push("--includes-file=" + this.base.to_full_name(includes_file))
+            const data = fs.readFileSync(this.base.to_full_name(includes_file), 'utf8');
+            console.log(data);
+            data.split(/\r?\n/).forEach(line =>  {
+                res.push("-I" + this.base.to_full_name(line));
+            });
         }
 
         let suppress = this.base.get_cfg(this.settings, "--suppress=", false, []);

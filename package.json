@@ -6,7 +6,7 @@
 		"cppcheck",
 		"cpplint"
 	],
-	"version": "1.4.8",
+	"version": "1.4.9",
 	"publisher": "eBikeLabs",
 	"engines": {
 		"vscode": "^1.52.0"
@@ -222,6 +222,14 @@
 					]],
 					"default": [],
 					"description": "Give a source file or source file directory to exclude\r\nfrom the check. This applies only to source files so\r\nheader files included by source files are not matched.\r\nDirectory name is matched to all parts of the path.\r\n auto add base path"
+				},
+				"cpp-checker.cppcheck.--includes-file=": {
+					"type": "string",
+					"examples": [
+						"cppcheck_includes.txt"
+					],
+					"default": "",
+					"description": "Specify directory paths to search for included header files in a text file. Add one include path per line. First given path is searched for contained header files first. If paths are relative to source files, this is not needed."
 				},
 				"cpp-checker.cppcheck.--inconclusive": {
 					"type": "boolean",
