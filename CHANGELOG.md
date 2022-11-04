@@ -99,3 +99,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [v1.4.9] - 2022-10-19
 ### Added
 - option cppcheck.--includes-file
+
+## [v1.4.10] - 2022-11-04
+### Changed
+- Fix option cppcheck.--suppressions-list

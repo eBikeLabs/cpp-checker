@@ -32,7 +32,6 @@ class cppcheck {
             this.base.get_cfg(this.settings, "--std_c=", true, null, "--std="),
             this.base.get_cfg(this.settings, "--std_c++=", true, null, "--std="),
             this.base.get_cfg(this.settings, "--inline-suppr", true),
-            this.base.get_cfg(this.settings, "--suppressions-list=", true),
             this.base.get_cfg(this.settings, "--report-progress", true),
             this.base.get_cfg(this.settings, "--customargs=", false),
 
@@ -61,7 +60,6 @@ class cppcheck {
         if (!common.is_empty_str(includes_file)) {
             // res.push("--includes-file=" + this.base.to_full_name(includes_file))
             const data = fs.readFileSync(this.base.to_full_name(includes_file), 'utf8');
-            console.log(data);
             data.split(/\r?\n/).forEach(line =>  {
                 res.push("-I" + this.base.to_full_name(line));
             });
@@ -74,6 +72,25 @@ class cppcheck {
                     res.push("--suppress=" + value);
                 }
             }
+        }
+
+        // We can't use the option --suppressions-list supported by cppcheck because the extension runs from the folder of the analyzed file, so the paths inside the file are not valid; this is why, instead, we include all folders one by one with --suppress option
+        let suppressions_list = this.base.get_cfg(this.settings, "--suppressions-list=", false, "");
+        if (!common.is_empty_str(suppressions_list)) {
+            // res.push("--suppressions-list=" + this.base.to_full_name(suppressions-list))
+            const data = fs.readFileSync(this.base.to_full_name(suppressions_list), 'utf8');
+            data.split(/\r?\n/).forEach(line =>  {
+                if (!line.startsWith("//")){
+                    try {
+                        const splitLine = line.split(":");
+                        const misra_rule = splitLine[0];
+                        const file_paths = splitLine[1];
+                        res.push("--suppress=" + misra_rule + ":" + (file_paths.startsWith("*") ? file_paths : this.base.to_full_name(file_paths)));
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+            });
         }
 
         let D = this.base.get_cfg(this.settings, "-D", false, []);
