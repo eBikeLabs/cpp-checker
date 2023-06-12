@@ -103,3 +103,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [v1.4.10] - 2022-11-04
 ### Changed
 - Fix option cppcheck.--suppressions-list
+
+
+## [v1.4.11] - 2023-06-12
+### Added
+- option cppcheck.--rule-file
+- option cppcheck.--include

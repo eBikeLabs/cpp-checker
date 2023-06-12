@@ -6,7 +6,7 @@
 		"cppcheck",
 		"cpplint"
 	],
-	"version": "1.4.10",
+	"version": "1.4.11",
 	"publisher": "eBikeLabs",
 	"engines": {
 		"vscode": "^1.52.0"
@@ -188,6 +188,16 @@
 					"type": "string",
 					"default": "",
 					"description": "customargs"
+				},
+				"cpp-checker.cppcheck.--rule-file=": {
+					"type": "string",
+					"default": "",
+					"description": "Use given rule file."
+				},
+				"cpp-checker.cppcheck.--include=": {
+					"type": "string",
+					"default": "",
+					"description": "Force inclusion of a file before the checked file."
 				},
 				"cpp-checker.cppcheck.--enable": {
 					"type": "boolean",
