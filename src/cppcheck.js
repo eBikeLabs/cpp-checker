@@ -34,6 +34,8 @@ class cppcheck {
             this.base.get_cfg(this.settings, "--inline-suppr", true),
             this.base.get_cfg(this.settings, "--report-progress", true),
             this.base.get_cfg(this.settings, "--customargs=", false),
+            this.base.get_cfg(this.settings, "--rule-file=", true),
+            this.base.get_cfg(this.settings, "--include=", true),
 
         );
 
